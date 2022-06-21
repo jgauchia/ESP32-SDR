@@ -29,10 +29,13 @@
 
 #include <Arduino.h>
 #include <TFT_eSPI.h>
+#include <SPIFFS.h>
 #include <SPI.h>
+#include <SD.h>
 #include "driver/i2s.h"
 
 #include "Vars.h"
+#include "TFT.h"
 #include "I2S_ADC_DAC.h"
 
 void setup() 
@@ -41,6 +44,12 @@ void setup()
   set_I2S();
   set_I2S_mclk_pin(MCK);
   xTaskCreatePinnedToCore(process_Audio, "process_Audio", 4096 , NULL, 10,  NULL, 0);
+  /* Inicializar Puerto Serie*/  
+  Serial.begin(115200);
+  /* Inicializar TFT*/
+  init_SPIFFS();
+  init_ili9341();
+  touch_calibrate();
 }
 
 void loop() 

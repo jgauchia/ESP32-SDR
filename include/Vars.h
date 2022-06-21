@@ -11,6 +11,9 @@
 // **********************************************
 //  Declaración funciones
 // **********************************************
+void init_ili9341();
+void init_SPIFFS();
+void touch_calibrate();
 void set_I2S_mclk_pin(const uint8_t pin);
 void set_I2S();
 void process_Audio( void *pvParameters );
