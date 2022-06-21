@@ -12,7 +12,7 @@
        GND  GND       GND  GND       GND  GND         GND   GND          GND   GND       SCA   GPIO21
        LED  3,3v      CS   GPIO4     A    GPIO16      BCK   GPIO26       SCK   GPIO0
        MISO GPIO27    MISO GPIO27    B    GPIO17      OUT   GPIO35       BCK   GPIO26
-       SCK  GPIO14    SCK  GPIO14                     LRC   GPIO33       DIN   GPIO25
+       SCK  GPIO14    SCK  GPIO14    SW   GPIO9       LRC   GPIO33       DIN   GPIO25
        MOSI GPIO13    MOSI GPIO13                     SCK   GPIO0        LCK   GPIO33
        DC   GPIO15
        RST  GPIO32

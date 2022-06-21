@@ -13,7 +13,7 @@
        GND  GND       GND  GND       GND  GND         GND   GND          GND   GND       SCA   GPIO21
        LED  3,3v      CS   GPIO4     A    GPIO16      BCK   GPIO26       SCK   GPIO0
        MISO GPIO27    MISO GPIO27    B    GPIO17      OUT   GPIO35       BCK   GPIO26
-       SCK  GPIO14    SCK  GPIO14                     LRC   GPIO33       DIN   GPIO25
+       SCK  GPIO14    SCK  GPIO14    SW   GPIO9       LRC   GPIO33       DIN   GPIO25
        MOSI GPIO13    MOSI GPIO13                     SCK   GPIO0        LCK   GPIO33
        DC   GPIO15
        RST  GPIO32
@@ -28,6 +28,8 @@
 */       
 
 #include <Arduino.h>
+#include <ESP32Encoder.h>
+#include "arduinoFFT.h"
 #include <TFT_eSPI.h>
 #include <SPIFFS.h>
 #include <SPI.h>
@@ -36,6 +38,7 @@
 
 #include "Vars.h"
 #include "TFT.h"
+#include "ENCODER.h"
 #include "I2S_ADC_DAC.h"
 
 void setup() 
@@ -52,6 +55,10 @@ void setup()
   init_SPIFFS();
   init_ili9341();
   touch_calibrate();
+
+  /* Inicializar encoder*/
+  init_encoder();
+  xTaskCreatePinnedToCore(Read_Encoder, "Read Encoder", 4096, NULL, 4, NULL, 0);
 }
 
 void loop() 
