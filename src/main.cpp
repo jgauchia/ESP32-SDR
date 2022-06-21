@@ -32,9 +32,15 @@
 #include <SPI.h>
 #include "driver/i2s.h"
 
+#include "Vars.h"
+#include "I2S_ADC_DAC.h"
+
 void setup() 
 {
-  // put your setup code here, to run once:
+  /* Inicializar DAC y ADC y procesar audio*/
+  set_I2S();
+  set_I2S_mclk_pin(MCK);
+  xTaskCreatePinnedToCore(process_Audio, "process_Audio", 4096 , NULL, 10,  NULL, 0);
 }
 
 void loop() 
