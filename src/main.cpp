@@ -7,10 +7,10 @@
        @date       21/06/2022
 
        Pinout:
-       ILI9341        MICRO SD       ENCODER          PCM1808            PCM5102
-       ---------------------------------------------------------------------------------------
-       VCC  3,3v      VCC  3,3v      VCC  3,3v        VCC   3,3v-5v      VCC   5v
-       GND  GND       GND  GND       GND  GND         GND   GND          GND   GND
+       ILI9341        MICRO SD       ENCODER          PCM1808            PCM5102         I2C
+       -----------------------------------------------------------------------------------------------------
+       VCC  3,3v      VCC  3,3v      VCC  3,3v        VCC   3,3v-5v      VCC   5v        SCL   GPIO22
+       GND  GND       GND  GND       GND  GND         GND   GND          GND   GND       SCA   GPIO21
        LED  3,3v      CS   GPIO4     A    GPIO16      BCK   GPIO26       SCK   GPIO0
        MISO GPIO27    MISO GPIO27    B    GPIO17      OUT   GPIO35       BCK   GPIO26
        SCK  GPIO14    SCK  GPIO14                     LRC   GPIO33       DIN   GPIO25
@@ -44,8 +44,10 @@ void setup()
   set_I2S();
   set_I2S_mclk_pin(MCK);
   xTaskCreatePinnedToCore(process_Audio, "process_Audio", 4096 , NULL, 10,  NULL, 0);
+
   /* Inicializar Puerto Serie*/  
   Serial.begin(115200);
+
   /* Inicializar TFT*/
   init_SPIFFS();
   init_ili9341();
@@ -54,5 +56,4 @@ void setup()
 
 void loop() 
 {
-  // put your main code here, to run repeatedly:
 }

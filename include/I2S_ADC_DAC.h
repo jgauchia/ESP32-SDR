@@ -20,7 +20,7 @@ float left_in[CHANNEL_BUF/2], right_in[CHANNEL_BUF/2];
 float left_out[CHANNEL_BUF/2], right_out[CHANNEL_BUF/2];
 
 float gain_input = 1.0f;
-float gain_output = 2.0f;
+float gain_output = 5.0f;
 
 // **********************************************
 //  Definición pines ADC y DAC
