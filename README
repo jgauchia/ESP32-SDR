@@ -1,4 +1,3 @@
-/*
        @file       main.cpp
        @brief      SDR con ESP32 + ILI9341 + PCM1808 + PCM5102
 
@@ -25,19 +24,5 @@
        ILI9341 :  https://github.com/Bodmer/TFT_eSPI
        ENCODER :  https://github.com/madhephaestus/ESP32Encoder
        FFT     :  https://github.com/kosme/arduinoFFT
-*/       
 
-#include <Arduino.h>
-#include <TFT_eSPI.h>
-#include <SPI.h>
-#include "driver/i2s.h"
 
-void setup() 
-{
-  // put your setup code here, to run once:
-}
-
-void loop() 
-{
-  // put your main code here, to run repeatedly:
-}
