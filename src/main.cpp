@@ -48,15 +48,21 @@
 #include "ENCODER.h"
 #include "UI/MAINSCREEN.h"
 
+#define DSP
+
 void setup()
 {
+#ifdef DSP
   /* Inicializar DAC y ADC y procesar audio*/
   set_I2S();
   set_I2S_mclk_pin(MCK);
   xTaskCreatePinnedToCore(process_Audio, "process_Audio", 4096, NULL, 10, NULL, 0);
+#endif
 
+#ifdef DEBUG
   /* Inicializar Puerto Serie*/
   Serial.begin(115200);
+#endif
 
   /* Inicializar TFT*/
   init_SPIFFS();
