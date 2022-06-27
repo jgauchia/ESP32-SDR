@@ -1,6 +1,6 @@
 /*
        @file       main.cpp
-       @brief      SDR con ESP32 + ILI9341 + PCM1808 + PCM5102
+       @brief      SDR con ESP32 + ILI9341 + PCM1808 + PCM5102 + SI5351
 
        @author     Jordi Gauchia
 
@@ -22,12 +22,15 @@
 
 
        Librerías:
+       SI5351  :  https://github.com/etherkit/Si5351Arduino
        ILI9341 :  https://github.com/Bodmer/TFT_eSPI
        ENCODER :  https://github.com/madhephaestus/ESP32Encoder
        FFT     :  https://github.com/kosme/arduinoFFT
-*/       
+*/
 
 #include <Arduino.h>
+#include "si5351.h"
+#include "Wire.h"
 #include <ESP32Encoder.h>
 #include "arduinoFFT.h"
 #include <TFT_eSPI.h>
@@ -37,18 +40,22 @@
 #include "driver/i2s.h"
 
 #include "Vars.h"
-#include "TFT.h"
-#include "ENCODER.h"
+#include "Conv_func.h"
 #include "I2S_ADC_DAC.h"
+#include "FFT.h"
+#include "TFT.h"
+#include "SI5351.h"
+#include "ENCODER.h"
+#include "UI/MAINSCREEN.h"
 
-void setup() 
+void setup()
 {
   /* Inicializar DAC y ADC y procesar audio*/
   set_I2S();
   set_I2S_mclk_pin(MCK);
-  xTaskCreatePinnedToCore(process_Audio, "process_Audio", 4096 , NULL, 10,  NULL, 0);
+  xTaskCreatePinnedToCore(process_Audio, "process_Audio", 4096, NULL, 10, NULL, 0);
 
-  /* Inicializar Puerto Serie*/  
+  /* Inicializar Puerto Serie*/
   Serial.begin(115200);
 
   /* Inicializar TFT*/
@@ -59,8 +66,29 @@ void setup()
   /* Inicializar encoder*/
   init_encoder();
   xTaskCreatePinnedToCore(Read_Encoder, "Read Encoder", 4096, NULL, 4, NULL, 0);
+
+  /* Inicializar SI5351*/
+  init_si5351();
+  si5351.set_freq(freq, SI5351_CLK0);
+  si5351.update_status();
 }
 
-void loop() 
+void loop()
 {
+
+  if (step_change)
+  {
+    step_change = false;
+  }
+
+  if (freq_change)
+  {
+    // update_freq(step_idx, freq);
+    si5351.set_freq(freq, SI5351_CLK0);
+    freq_change = false;
+  }
+
+  si5351.update_status();
+  Compute_FFT();
+  update_main_screen();
 }

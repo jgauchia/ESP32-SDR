@@ -4,9 +4,8 @@
 
        @author     Jordi Gauchia
 
-       @date       21/09/2022
+       @date       21/06/2022
 */
-
 
 // **********************************************
 //  Declaración para el TFT ILI9341
@@ -26,6 +25,9 @@ void init_ili9341()
   tft.setRotation(3);
   tft.fillScreen(TFT_BLACK);
   tft.initDMA();
+  spr.setColorDepth(ESP.getFreePsram() == 0 ? 8 : 16);
+  spr.createSprite(tft.width(), tft.height(), 1);
+  spr.fillSprite(TFT_BLACK);
 }
 
 // **********************************************

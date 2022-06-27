@@ -1,5 +1,5 @@
        @file       main.cpp
-       @brief      SDR con ESP32 + ILI9341 + PCM1808 + PCM5102
+       @brief      SDR con ESP32 + ILI9341 + PCM1808 + PCM5102 + SI5351
 
        @author     Jordi Gauchia
 
@@ -21,6 +21,7 @@
 
 
        Librerías:
+       SI5351  :  https://github.com/etherkit/Si5351Arduino
        ILI9341 :  https://github.com/Bodmer/TFT_eSPI
        ENCODER :  https://github.com/madhephaestus/ESP32Encoder
        FFT     :  https://github.com/kosme/arduinoFFT

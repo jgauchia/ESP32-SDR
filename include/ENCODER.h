@@ -4,7 +4,7 @@
 
        @author     Jordi Gauchia
 
-       @date       21/09/2022
+       @date       21/06/2022
 */
 
 // **********************************************
@@ -21,6 +21,8 @@ ESP32Encoder encoder;
 int32_t encoder_pos = 0;
 int32_t encoder_newpos = 0;
 int encoder_dir = 0;
+bool freq_change = false;
+bool step_change = false;
 int sw_lastState = HIGH;
 int sw_currentState;
 
@@ -42,13 +44,13 @@ void get_encoder()
   if (sw_lastState == HIGH && sw_currentState == LOW)
   {
     encoder.pauseCount();
-    // step_idx++;
-    // if (step_idx > 4)
-    //   step_idx = 0;
-    // if (step_idx != 0)
-    //   freq_oldstep = freq_step / steps_mult[step_idx - 1];
-    // freq_step = freq_oldstep * steps_mult[step_idx];
-    // step_change = true;
+    step_idx++;
+    if (step_idx > 4)
+      step_idx = 0;
+    if (step_idx != 0)
+      freq_oldstep = freq_step / steps_mult[step_idx - 1];
+    freq_step = freq_oldstep * steps_mult[step_idx];
+    step_change = true;
     encoder.resumeCount();
   }
   delay(5);
@@ -62,18 +64,18 @@ void get_encoder()
 
   if (encoder_pos != encoder_newpos)
   {
-    // if (freq == freq_min && encoder_dir == -1)
-    //   freq = freq_min;
-    // else
-    //   freq += encoder_dir * freq_step;
+    if (freq == freq_min && encoder_dir == -1)
+      freq = freq_min;
+    else
+      freq += encoder_dir * freq_step;
 
-    // if (freq <= freq_min)
-    //   freq = freq_min;
-    // if (freq >= freq_max)
-    //   freq = freq_max;
+    if (freq <= freq_min)
+      freq = freq_min;
+    if (freq >= freq_max)
+      freq = freq_max;
 
     encoder_pos = encoder_newpos;
-    // freq_change = true;
+    freq_change = true;
   }
 }
 
@@ -82,7 +84,7 @@ void get_encoder()
 // **********************************************
 void Read_Encoder(void *pvParameters)
 {
-  (void) pvParameters;
+  (void)pvParameters;
   for (;;)
   {
     get_encoder();
