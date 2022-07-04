@@ -42,16 +42,17 @@ char *freq_to_string_mhz(uint64_t input)
 char *freq_to_string_hz(uint64_t input)
 {
   input /= 100;
-  static char in[9] = "";
+  static char in[10] = "";
   static char out[4] = "";
   memset(&out[0], 0, sizeof(out));
   memset(&in[0], 0, sizeof(in));
   sprintf(in, "%d", input);
-  int final_pos = 3;
+  int final_pos = 4;
   int buff_pos = strlen(in);
   while (final_pos >= 0)
   {
     out[final_pos--] = in[buff_pos--];
   }
+  out[0] = '.';
   return out;
 }

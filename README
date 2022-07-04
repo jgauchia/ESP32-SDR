@@ -1,12 +1,12 @@
        @file       main.cpp
-       @brief      SDR con ESP32 + ILI9341 + PCM1808 + PCM5102 + SI5351
+       @brief      SDR con ESP32 + TFT + PCM1808 + PCM5102 + SI5351
 
        @author     Jordi Gauchia
 
        @date       21/06/2022
 
        Pinout:
-       ILI9341        MICRO SD       ENCODER          PCM1808            PCM5102         I2C
+       TFT            MICRO SD       ENCODER          PCM1808            PCM5102         I2C
        -----------------------------------------------------------------------------------------------------
        VCC  3,3v      VCC  3,3v      VCC  3,3v        VCC   3,3v-5v      VCC   5v        SCL   GPIO22
        GND  GND       GND  GND       GND  GND         GND   GND          GND   GND       SCA   GPIO21

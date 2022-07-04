@@ -17,6 +17,7 @@
 int ADC_buf[CHANNEL_BUF], DAC_buf[CHANNEL_BUF], FFT_buf[CHANNEL_BUF];
 float left_in[CHANNEL_BUF / 2], right_in[CHANNEL_BUF / 2];
 float left_out[CHANNEL_BUF / 2], right_out[CHANNEL_BUF / 2];
+float I_chan[CHANNEL_BUF / 2], Q_chan[CHANNEL_BUF / 2];
 
 float gain_input = 1.0f;
 float gain_output = 3.0f;
@@ -108,6 +109,9 @@ void process_Audio(void *pvParameters)
 
         right_in[y] = (float)ADC_buf[i];
         left_in[y] = (float)ADC_buf[i + 1];
+
+        Q_chan[y] = (float)ADC_buf[i];
+        I_chan[y] = (float)ADC_buf[i + 1];
         y++;
       }
 

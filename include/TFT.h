@@ -15,19 +15,20 @@
 
 TFT_eSPI tft = TFT_eSPI();
 TFT_eSprite spr = TFT_eSprite(&tft);
+TFT_eSprite freq_spr = TFT_eSprite(&tft);
 
 // **********************************************
 //  Función para inicializar el LCD
 // **********************************************
-void init_ili9341()
+void init_TFT()
 {
   tft.init();
-  tft.setRotation(3);
+  tft.setRotation(1);
   tft.fillScreen(TFT_BLACK);
-  tft.initDMA();
-  spr.setColorDepth(ESP.getFreePsram() == 0 ? 8 : 16);
-  spr.createSprite(tft.width(), tft.height(), 1);
-  spr.fillSprite(TFT_BLACK);
+  //tft.initDMA();
+  freq_spr.setColorDepth(ESP.getFreePsram() == 0 ? 8 : 16);
+  freq_spr.createSprite(230, 50);
+  freq_spr.fillSprite(TFT_BLACK);
 }
 
 // **********************************************

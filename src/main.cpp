@@ -1,13 +1,13 @@
 /*
        @file       main.cpp
-       @brief      SDR con ESP32 + ILI9341 + PCM1808 + PCM5102 + SI5351
+       @brief      SDR con ESP32 + TFT + PCM1808 + PCM5102 + SI5351
 
        @author     Jordi Gauchia
 
        @date       21/06/2022
 
        Pinout:
-       ILI9341        MICRO SD       ENCODER          PCM1808            PCM5102         I2C
+       TFT            MICRO SD       ENCODER          PCM1808            PCM5102         I2C
        -----------------------------------------------------------------------------------------------------
        VCC  3,3v      VCC  3,3v      VCC  3,3v        VCC   3,3v-5v      VCC   5v        SCL   GPIO22
        GND  GND       GND  GND       GND  GND         GND   GND          GND   GND       SCA   GPIO21
@@ -48,7 +48,9 @@
 #include "ENCODER.h"
 #include "UI/MAINSCREEN.h"
 
-#define DSP
+#define DEBUG
+//#define DSP
+//#define VFO
 
 void setup()
 {
@@ -66,22 +68,24 @@ void setup()
 
   /* Inicializar TFT*/
   init_SPIFFS();
-  init_ili9341();
+  init_TFT();
   touch_calibrate();
 
   /* Inicializar encoder*/
   init_encoder();
   xTaskCreatePinnedToCore(Read_Encoder, "Read Encoder", 4096, NULL, 4, NULL, 0);
 
+#ifdef VFO
   /* Inicializar SI5351*/
   init_si5351();
-  si5351.set_freq(freq, SI5351_CLK0);
-  si5351.update_status();
+  SendFrequency();
+#endif
+
+  update_freq_main_screen();
 }
 
 void loop()
 {
-
   if (step_change)
   {
     step_change = false;
@@ -89,12 +93,12 @@ void loop()
 
   if (freq_change)
   {
-    // update_freq(step_idx, freq);
-    si5351.set_freq(freq, SI5351_CLK0);
+    update_freq_main_screen();
+    SendFrequency();
+    // si5351.set_freq(freq, SI5351_CLK0);
     freq_change = false;
   }
 
-  si5351.update_status();
+  // si5351.update_status();
   Compute_FFT();
-  update_main_screen();
 }

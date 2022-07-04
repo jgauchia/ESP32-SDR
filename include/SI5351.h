@@ -16,11 +16,16 @@ Si5351 si5351;
 //  Definición frecuencias
 // **********************************************
 // uint64_t freq = 73700000ULL;
-uint64_t freq = 7600000000ULL;
+static const uint64_t pll_min = 40000000000ULL; //60000000000ULL;
+static const uint64_t pll_max = 90000000000ULL;
+uint64_t freq = 500000000ULL;
 uint64_t freq_max = 16000000000ULL;
 uint64_t freq_min = 800000ULL;
 uint64_t freq_step = 10000ULL;
 uint64_t freq_oldstep = 0;
+uint64_t oldfreq = 0;
+uint64_t pll_freq;
+int multiple;
 
 // **********************************************
 //  Definición steps
@@ -43,9 +48,55 @@ void init_si5351()
   }
   else
   {
-    // si5351.drive_strength(SI5351_CLK0, SI5351_DRIVE_8MA);
+    si5351.drive_strength(SI5351_CLK0, SI5351_DRIVE_2MA);
+    si5351.drive_strength(SI5351_CLK1, SI5351_DRIVE_2MA);
     si5351.output_enable(SI5351_CLK0, 1);
-    si5351.output_enable(SI5351_CLK1, 0);
+    si5351.output_enable(SI5351_CLK1, 1);
     si5351.output_enable(SI5351_CLK2, 0);
   }
+}
+
+// **********************************************
+//  Función para obtener el PLL el VFO
+// **********************************************
+void GetPLLFreq()
+{
+  float_t f_pll_freq;
+
+  for (int i = 10; i <= 200; i = i + 2)
+  {
+    f_pll_freq = freq * i;
+    if (f_pll_freq >= pll_min)
+    {
+      if (f_pll_freq <= pll_max)
+      {
+        if (f_pll_freq == floor(f_pll_freq))
+        {
+          pll_freq = f_pll_freq;
+          multiple = pll_freq / freq;
+          break;
+        }
+      }
+    }
+  }
+}
+
+// **********************************************
+//  Función para enviar frecuencia a VFO
+//  con desfase 90º en CLK1 respecto CLK0
+// **********************************************
+void SendFrequency()
+{
+
+  GetPLLFreq();
+
+  si5351.set_pll(pll_freq, SI5351_PLLA);
+
+  si5351.set_freq_manual(freq, pll_freq, SI5351_CLK0);
+  si5351.set_freq_manual(freq, pll_freq, SI5351_CLK1);
+
+  si5351.set_phase(SI5351_CLK0, 0);
+  si5351.set_phase(SI5351_CLK1, multiple);  
+  
+  si5351.pll_reset(SI5351_PLLA);
 }
