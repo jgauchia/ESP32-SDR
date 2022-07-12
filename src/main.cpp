@@ -28,12 +28,16 @@
        FFT     :  https://github.com/kosme/arduinoFFT
 */
 
+bool REPEAT_CAL = false;
+#define DEBUG
+#define DSP
+//#define VFO
+
 #include <Arduino.h>
 #include "si5351.h"
 #include "Wire.h"
 #include <ESP32Encoder.h>
 #include "arduinoFFT.h"
-//#include <TFT_eSPI.h>
 #include <SPIFFS.h>
 #include <SPI.h>
 #include <SD.h>
@@ -47,10 +51,6 @@
 #include "SI5351.h"
 #include "ENCODER.h"
 #include "UI/MAINSCREEN.h"
-
-#define DEBUG
-#define DSP
-//#define VFO
 
 void setup()
 {
@@ -95,9 +95,9 @@ void loop()
   if (freq_change)
   {
     update_freq_main_screen();
-    #ifdef VFO
-      SendFrequency();
-    #endif
+#ifdef VFO
+    SendFrequency();
+#endif
     // si5351.set_freq(freq, SI5351_CLK0);
     freq_change = false;
   }

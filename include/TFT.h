@@ -99,7 +99,6 @@ public:
 //  Declaración para el TFT ILI9341
 // **********************************************
 #define CALIBRATION_FILE "/TouchCalData1"
-#define REPEAT_CAL false
 
 static TFT_eSPI tft;
 static TFT_eSprite spr = TFT_eSprite(&tft);
@@ -154,39 +153,39 @@ void touch_calibrate()
     }
   }
 
-  /*
-    if (calDataOK && !REPEAT_CAL)
-       tft.setTouch(calData);
-    else
+  if (calDataOK && !REPEAT_CAL)
+    tft.setTouchCalibrate(calData);
+  else
+  {
+    tft.fillScreen(TFT_BLACK);
+    tft.setCursor(20, 0);
+    tft.setTextFont(2);
+    tft.setTextSize(1);
+    tft.setTextColor(TFT_WHITE, TFT_BLACK);
+
+    tft.println("Touch corners as indicated");
+
+    tft.setTextFont(1);
+    tft.println();
+
+    if (REPEAT_CAL)
     {
-      tft.fillScreen(TFT_BLACK);
-      tft.setCursor(20, 0);
-      tft.setTextFont(2);
-      tft.setTextSize(1);
-      tft.setTextColor(TFT_WHITE, TFT_BLACK);
+      tft.setTextColor(TFT_RED, TFT_BLACK);
+      tft.println("Set REPEAT_CAL to false to stop this running again!");
+    }
 
-      tft.println("Touch corners as indicated");
+    tft.calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
 
-      tft.setTextFont(1);
-      tft.println();
+    tft.setTextColor(TFT_GREEN, TFT_BLACK);
+    tft.println("Calibration complete!");
 
-      if (REPEAT_CAL)
-      {
-        tft.setTextColor(TFT_RED, TFT_BLACK);
-        tft.println("Set REPEAT_CAL to false to stop this running again!");
-      }
-
-      tft.calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
-
-      tft.setTextColor(TFT_GREEN, TFT_BLACK);
-      tft.println("Calibration complete!");
-
-      File f = SPIFFS.open(CALIBRATION_FILE, "w");
-      if (f)
-      {
-        f.write((const unsigned char *)calData, 14);
-        f.close();
-      }
-}
-*/
+    File f = SPIFFS.open(CALIBRATION_FILE, "w");
+    if (f)
+    {
+      f.write((const unsigned char *)calData, 14);
+      f.close();
+    }
+    delay(1000);
+    tft.fillScreen(TFT_BLACK);
+  }
 }
