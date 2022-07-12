@@ -22,7 +22,7 @@
 
        Librerías:
        SI5351  :  https://github.com/etherkit/Si5351Arduino
-       ILI9341 :  https://github.com/Bodmer/TFT_eSPI
+       TFT     :  https://github.com/lovyan03/LovyanGFX
        ENCODER :  https://github.com/madhephaestus/ESP32Encoder
        FFT     :  https://github.com/kosme/arduinoFFT
 

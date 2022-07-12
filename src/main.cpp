@@ -23,7 +23,7 @@
 
        Librerías:
        SI5351  :  https://github.com/etherkit/Si5351Arduino
-       ILI9341 :  https://github.com/Bodmer/TFT_eSPI
+       TFT     :  https://github.com/lovyan03/LovyanGFX
        ENCODER :  https://github.com/madhephaestus/ESP32Encoder
        FFT     :  https://github.com/kosme/arduinoFFT
 */
@@ -33,7 +33,7 @@
 #include "Wire.h"
 #include <ESP32Encoder.h>
 #include "arduinoFFT.h"
-#include <TFT_eSPI.h>
+//#include <TFT_eSPI.h>
 #include <SPIFFS.h>
 #include <SPI.h>
 #include <SD.h>
@@ -49,7 +49,7 @@
 #include "UI/MAINSCREEN.h"
 
 #define DEBUG
-//#define DSP
+#define DSP
 //#define VFO
 
 void setup()
@@ -88,13 +88,16 @@ void loop()
 {
   if (step_change)
   {
+    update_freq_main_screen();
     step_change = false;
   }
 
   if (freq_change)
   {
     update_freq_main_screen();
-    SendFrequency();
+    #ifdef VFO
+      SendFrequency();
+    #endif
     // si5351.set_freq(freq, SI5351_CLK0);
     freq_change = false;
   }
