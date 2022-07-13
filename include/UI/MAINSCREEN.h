@@ -8,11 +8,11 @@
 */
 
 // **********************************************
-//  Función para actualizar pantalla principal
+//  Función para actualizar frecuencia pant.princ
 // **********************************************
 void update_freq_main_screen()
 {
-    char freq_str[25] = "";
+    char freq_str[12] = "";
     memset(&freq_str[0], 0, sizeof(freq_str));
 
     freq_spr.fillSprite(BKG_COLOUR);
@@ -102,14 +102,34 @@ void update_freq_main_screen()
 }
 
 // **********************************************
+//  Función para actualizar status pant.princ
+// **********************************************
+void update_status_main_screen()
+{
+    char status_str[200] = "";
+    memset(&status_str[0],0,sizeof(status_str));
+
+    status_spr.fillSprite(BKG_COLOUR);
+    status_spr.setTextSize(1);
+    status_spr.setTextColor(STATUS_FONT_COLOUR, BKG_COLOUR);
+        
+    memset(&status_str[0],0,sizeof(status_str)); 
+    sprintf(status_str, "Model:%s %dMhz - Free mem:%dK %d%%",ESP.getChipModel(),ESP.getCpuFreqMHz(),(ESP.getFreeHeap()/1024),(ESP.getFreeHeap()*100)/ESP.getHeapSize() );
+    status_spr.drawString(status_str, 0, 0, 1);
+    
+    status_spr.pushSprite(0, 0);
+    memset(&status_str[0],0,sizeof(status_str)); 
+}
+
+// **********************************************
 //  Función para dibujar espectro audio
 // **********************************************
 void draw_spectrum()
 {
-    double first_fft_value;
-    double next_fft_value;
-    int max_k = 0;
-    for (int i = 0; i <= 256; i++)
+    //double first_fft_value;
+    //double next_fft_value;
+    //int max_k = 0;
+    for (uint16_t i = 0; i <= 256; i++)
     {
         // first_fft_value = (vReal[i] / 10);
         // next_fft_value = (vReal[i + 1] /10);

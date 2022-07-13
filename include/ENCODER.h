@@ -20,11 +20,11 @@
 ESP32Encoder encoder;
 int32_t encoder_pos = 0;
 int32_t encoder_newpos = 0;
-int encoder_dir = 0;
+int8_t encoder_dir = 0;
 bool freq_change = false;
 bool step_change = false;
-int sw_lastState = HIGH;
-int sw_currentState;
+bool sw_lastState = HIGH;
+bool sw_currentState;
 
 // **********************************************
 //  Función para incializar el encoder

@@ -96,11 +96,12 @@ public:
 #include <LGFX_TFT_eSPI.hpp>
 
 // **********************************************
-//  Declaración para el TFT 
+//  Declaración para el TFT
 // **********************************************
 static TFT_eSPI tft;
 static TFT_eSprite spr = TFT_eSprite(&tft);
 static TFT_eSprite freq_spr = TFT_eSprite(&tft);
+static TFT_eSprite status_spr = TFT_eSprite(&tft);
 
 // **********************************************
 //  Función para inicializar el LCD
@@ -114,6 +115,9 @@ void init_TFT()
   freq_spr.setColorDepth(16);
   freq_spr.createSprite(FREQ_WIDTH, FREQ_HEIGHT);
   freq_spr.fillSprite(BKG_COLOUR);
+  status_spr.setColorDepth(16);
+  status_spr.createSprite(STATUS_WIDTH, STATUS_HEIGHT);
+  status_spr.fillSprite(BKG_COLOUR);
 }
 
 // **********************************************
@@ -133,7 +137,7 @@ void init_SPIFFS()
 void touch_calibrate()
 {
   uint16_t calData[5];
-  uint8_t calDataOK = 0;
+  bool calDataOK = 0;
 
   if (SPIFFS.exists(CALIBRATION_FILE))
   {

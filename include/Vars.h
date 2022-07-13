@@ -12,12 +12,16 @@
 // **********************************************
 bool REPEAT_CAL = false;
 #define CALIBRATION_FILE "/TouchCalData1"
-#define BKG_COLOUR TFT_LIGHTGRAY
+#define BKG_COLOUR TFT_BLACK
 #define FREQ_FONT_COLOUR TFT_WHITE
+#define STATUS_FONT_COLOUR TFT_YELLOW
 #define FREQ_WIDTH  230
 #define FREQ_HEIGHT 50
 #define FREQ_POS_X  140
 #define FREQ_POS_Y  65
+#define STATUS_WIDTH 480
+#define STATUS_HEIGHT 8
+
 
 // **********************************************
 //  Declaración funciones
@@ -32,6 +36,7 @@ void set_I2S_mclk_pin(const uint8_t pin);
 void set_I2S();
 void process_Audio(void *pvParameters);
 void update_freq_main_screen();
+void update_status_main_screen();
 void draw_spectrum();
 void Compute_FFT();
 void init_si5351();

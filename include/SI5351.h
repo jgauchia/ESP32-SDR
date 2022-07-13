@@ -31,9 +31,9 @@ int multiple;
 //  Definición steps
 // **********************************************
 #define NUM_STEPS 5
-int steps_mult[NUM_STEPS] = {1, 10, 100, 1000, 10000};
-int step_idx = 0;
-int step_oldidx = 0;
+uint16_t steps_mult[NUM_STEPS] = {1, 10, 100, 1000, 10000};
+byte step_idx = 0;
+byte step_oldidx = 0;
 
 // **********************************************
 //  Función para inicializar el VFO

@@ -29,7 +29,7 @@
 */
 
 #define DEBUG
-#define DSP
+//#define DSP
 //#define VFO
 
 #include <Arduino.h>
@@ -50,6 +50,7 @@
 #include "SI5351.h"
 #include "ENCODER.h"
 #include "UI/MAINSCREEN.h"
+
 
 void setup()
 {
@@ -81,10 +82,13 @@ void setup()
 #endif
 
   update_freq_main_screen();
+  update_status_main_screen();
+
 }
 
 void loop()
 {
+  update_status_main_screen();
   if (step_change)
   {
     update_freq_main_screen();
@@ -101,6 +105,8 @@ void loop()
     freq_change = false;
   }
 
-  // si5351.update_status();
+// si5351.update_status();
+#ifdef DPS
   Compute_FFT();
+#endif
 }
