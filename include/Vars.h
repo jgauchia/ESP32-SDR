@@ -8,6 +8,18 @@
 */
 
 // **********************************************
+//  Declaración variables
+// **********************************************
+bool REPEAT_CAL = false;
+#define CALIBRATION_FILE "/TouchCalData1"
+#define BKG_COLOUR TFT_LIGHTGRAY
+#define FREQ_FONT_COLOUR TFT_WHITE
+#define FREQ_WIDTH  230
+#define FREQ_HEIGHT 50
+#define FREQ_POS_X  140
+#define FREQ_POS_Y  65
+
+// **********************************************
 //  Declaración funciones
 // **********************************************
 void init_TFT();

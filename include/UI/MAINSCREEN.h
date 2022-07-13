@@ -7,8 +7,6 @@
        @date       21/06/2022
 */
 
-#define FREQ_FONT_COLOUR TFT_WHITE
-
 // **********************************************
 //  Función para actualizar pantalla principal
 // **********************************************
@@ -17,22 +15,22 @@ void update_freq_main_screen()
     char freq_str[25] = "";
     memset(&freq_str[0], 0, sizeof(freq_str));
 
-    freq_spr.fillSprite(TFT_BLACK);
+    freq_spr.fillSprite(BKG_COLOUR);
     freq_spr.setTextSize(1);
     // draw_spectrum();
 
     if (step_idx == 0)
     {
-        freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+        freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
         freq_spr.drawString(freq_to_string_mhz(freq), 0, 0, 6);
         memset(&freq_str[0], 0, sizeof(freq_str));
         strncpy(freq_str, freq_to_string_hz(freq), 1);
         freq_spr.drawString(freq_str, 180, 18, 4);
-        freq_spr.setTextColor(TFT_BLACK, FREQ_FONT_COLOUR);
+        freq_spr.setTextColor(BKG_COLOUR, FREQ_FONT_COLOUR);
         memset(&freq_str[0], 0, sizeof(freq_str));
         strncpy(freq_str, freq_to_string_hz(freq) + 1, 1);
         freq_spr.drawString(freq_str, 186, 18, 4);
-        freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+        freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
         memset(&freq_str[0], 0, sizeof(freq_str));
         strncpy(freq_str, freq_to_string_hz(freq) + 2, 2);
         freq_spr.drawString(freq_str, 201, 18, 4);
@@ -42,53 +40,53 @@ void update_freq_main_screen()
         switch (step_idx)
         {
         case 1:
-            freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+            freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq), 6);
             freq_spr.drawString(freq_str, 0, 0, 6);
-            freq_spr.setTextColor(TFT_BLACK, FREQ_FONT_COLOUR);
+            freq_spr.setTextColor(BKG_COLOUR, FREQ_FONT_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq) + 6, 1);
             freq_spr.drawString(freq_str, 150, 0, 6);
             break;
         case 2:
-            freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+            freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq), 5);
             freq_spr.drawString(freq_str, 0, 0, 6);
-            freq_spr.setTextColor(TFT_BLACK, FREQ_FONT_COLOUR);
+            freq_spr.setTextColor(BKG_COLOUR, FREQ_FONT_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq) + 5, 1);
             freq_spr.drawString(freq_str, 123, 0, 6);
-            freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+            freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq) + 6, 1);
             freq_spr.drawString(freq_str, 150, 0, 6);
             break;
         case 3:
-            freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+            freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq), 4);
             freq_spr.drawString(freq_str, 0, 0, 6);
-            freq_spr.setTextColor(TFT_BLACK, FREQ_FONT_COLOUR);
+            freq_spr.setTextColor(BKG_COLOUR, FREQ_FONT_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq) + 4, 1);
             freq_spr.drawString(freq_str, 95, 0, 6);
-            freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+            freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq) + 5, 2);
             freq_spr.drawString(freq_str, 123, 0, 6);
             break;
         case 4:
-            freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+            freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq), 2);
             freq_spr.drawString(freq_str, 0, 0, 6);
-            freq_spr.setTextColor(TFT_BLACK, FREQ_FONT_COLOUR);
+            freq_spr.setTextColor(BKG_COLOUR, FREQ_FONT_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq) + 2, 1);
             freq_spr.drawString(freq_str, 53, 0, 6);
-            freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+            freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
             memset(&freq_str[0], 0, sizeof(freq_str));
             strncpy(freq_str, freq_to_string_mhz(freq) + 3, 4);
             freq_spr.drawString(freq_str, 81, 0, 6);
@@ -96,10 +94,11 @@ void update_freq_main_screen()
         default:
             break;
         }
-        freq_spr.setTextColor(FREQ_FONT_COLOUR, TFT_BLACK);
+        freq_spr.setTextColor(FREQ_FONT_COLOUR, BKG_COLOUR);
         freq_spr.drawString(freq_to_string_hz(freq), 180, 18, 4);
     }
-    freq_spr.pushSprite(140, 65);
+    freq_spr.pushSprite(FREQ_POS_X, FREQ_POS_Y);
+    memset(&freq_str[0], 0, sizeof(freq_str));
 }
 
 // **********************************************

@@ -28,7 +28,6 @@
        FFT     :  https://github.com/kosme/arduinoFFT
 */
 
-bool REPEAT_CAL = false;
 #define DEBUG
 #define DSP
 //#define VFO

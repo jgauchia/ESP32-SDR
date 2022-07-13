@@ -26,7 +26,7 @@ public:
     {
       auto cfg = _bus_instance.config();
 
-      cfg.spi_host = SPI2_HOST;
+      cfg.spi_host = HSPI_HOST;
       cfg.spi_mode = 0;
       cfg.freq_write = 79999999;
       cfg.freq_read = 70000000;
@@ -35,7 +35,7 @@ public:
       cfg.dma_channel = SPI_DMA_CH_AUTO;
       cfg.pin_sclk = 14;
       cfg.pin_mosi = 13;
-      cfg.pin_miso = 27;
+      cfg.pin_miso = 12;
       cfg.pin_dc = 15;
       _bus_instance.config(cfg);
       _panel_instance.setBus(&_bus_instance);
@@ -96,10 +96,8 @@ public:
 #include <LGFX_TFT_eSPI.hpp>
 
 // **********************************************
-//  Declaración para el TFT ILI9341
+//  Declaración para el TFT 
 // **********************************************
-#define CALIBRATION_FILE "/TouchCalData1"
-
 static TFT_eSPI tft;
 static TFT_eSprite spr = TFT_eSprite(&tft);
 static TFT_eSprite freq_spr = TFT_eSprite(&tft);
@@ -111,11 +109,11 @@ void init_TFT()
 {
   tft.init();
   tft.setRotation(1);
-  tft.fillScreen(TFT_BLACK);
-  // tft.initDMA();
-  freq_spr.setColorDepth(ESP.getFreePsram() == 0 ? 8 : 16);
-  freq_spr.createSprite(230, 50);
-  freq_spr.fillSprite(TFT_BLACK);
+  tft.fillScreen(BKG_COLOUR);
+  tft.initDMA();
+  freq_spr.setColorDepth(16);
+  freq_spr.createSprite(FREQ_WIDTH, FREQ_HEIGHT);
+  freq_spr.fillSprite(BKG_COLOUR);
 }
 
 // **********************************************
