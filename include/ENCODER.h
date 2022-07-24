@@ -12,7 +12,7 @@
 // **********************************************
 #define ENCODER_A 16
 #define ENCODER_B 17
-#define ENCODER_SW 9
+#define ENCODER_SW 19
 
 // **********************************************
 //  Declaración encoder
@@ -23,8 +23,8 @@ int32_t encoder_newpos = 0;
 int8_t encoder_dir = 0;
 bool freq_change = false;
 bool step_change = false;
-bool sw_lastState = HIGH;
-bool sw_currentState;
+byte sw_lastState = HIGH;
+byte sw_currentState;
 
 // **********************************************
 //  Función para incializar el encoder

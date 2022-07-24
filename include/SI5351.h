@@ -18,7 +18,7 @@ Si5351 si5351;
 // uint64_t freq = 73700000ULL;
 static const uint64_t pll_min = 40000000000ULL; //60000000000ULL;
 static const uint64_t pll_max = 90000000000ULL;
-uint64_t freq = 500000000ULL;
+uint64_t freq = 11000000000ULL;
 uint64_t freq_max = 16000000000ULL;
 uint64_t freq_min = 800000ULL;
 uint64_t freq_step = 10000ULL;

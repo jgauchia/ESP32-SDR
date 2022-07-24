@@ -28,14 +28,14 @@ public:
 
       cfg.spi_host = HSPI_HOST;
       cfg.spi_mode = 0;
-      cfg.freq_write = 79999999;
+      cfg.freq_write = 70000000;
       cfg.freq_read = 70000000;
       cfg.spi_3wire = false;
       cfg.use_lock = true;
       cfg.dma_channel = SPI_DMA_CH_AUTO;
       cfg.pin_sclk = 14;
       cfg.pin_mosi = 13;
-      cfg.pin_miso = 12;
+      cfg.pin_miso = 27;
       cfg.pin_dc = 15;
       _bus_instance.config(cfg);
       _panel_instance.setBus(&_bus_instance);

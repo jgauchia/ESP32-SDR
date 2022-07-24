@@ -13,7 +13,7 @@
        GND  GND       GND  GND       GND  GND         GND   GND          GND   GND       SCA   GPIO21
        LED  3,3v      CS   GPIO4     A    GPIO16      BCK   GPIO26       SCK   GPIO0
        MISO GPIO27    MISO GPIO27    B    GPIO17      OUT   GPIO35       BCK   GPIO26
-       SCK  GPIO14    SCK  GPIO14    SW   GPIO9       LRC   GPIO33       DIN   GPIO25
+       SCK  GPIO14    SCK  GPIO14    SW   GPIO19      LRC   GPIO33       DIN   GPIO25
        MOSI GPIO13    MOSI GPIO13                     SCK   GPIO0        LCK   GPIO33
        DC   GPIO15
        RST  GPIO32
@@ -29,8 +29,8 @@
 */
 
 #define DEBUG
-//#define DSP
-//#define VFO
+#define DSP
+#define VFO
 
 #include <Arduino.h>
 #include "si5351.h"
@@ -50,7 +50,6 @@
 #include "SI5351.h"
 #include "ENCODER.h"
 #include "UI/MAINSCREEN.h"
-
 
 void setup()
 {
@@ -83,7 +82,6 @@ void setup()
 
   update_freq_main_screen();
   update_status_main_screen();
-
 }
 
 void loop()
@@ -106,7 +104,8 @@ void loop()
   }
 
 // si5351.update_status();
-#ifdef DPS
+#ifdef DSP
   Compute_FFT();
 #endif
+  delay(1);
 }
